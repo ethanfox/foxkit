@@ -5,20 +5,14 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { copyFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-export default defineConfig(({ mode }) => {
-  const base = mode === 'development' ? '/' : '/foxkit/'
+const base = '/foxkit/'
 
-  return {
+export default defineConfig({
+  base,
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     },
-  },
-  server: {
-    open: base,
-  },
-  preview: {
-    open: base,
   },
   plugins: [
     react(),
@@ -46,13 +40,6 @@ export default defineConfig(({ mode }) => {
         start_url: base,
         scope: base,
         id: base,
-        prefer_related_applications: false,
-        related_applications: [
-          {
-            platform: 'webapp',
-            url: 'https://ethanfox.github.io/foxkit/manifest.webmanifest',
-          },
-        ],
         icons: [
           {
             src: 'icons/icon-192.png',
@@ -90,5 +77,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   ],
-  }
 })

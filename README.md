@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173/`. Production on GitHub Pages uses `/foxkit/`.
+Open `http://localhost:5173/foxkit/`.
 
 ```bash
 npm test
