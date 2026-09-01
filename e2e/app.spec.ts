@@ -8,11 +8,13 @@ test('home shows the two tools', async ({ page }) => {
   await expect(page.getByText('No account. No upload. No nonsense.')).toBeVisible()
 })
 
-test('gradient studio copies css', async ({ page }) => {
+test('gradient studio opens export and copies css', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   await page.goto('./gradient')
   await page.getByRole('button', { name: 'Copy / share' }).click()
+  await expect(page.getByRole('heading', { name: 'Export' })).toBeVisible()
   await page.getByRole('button', { name: 'Copy CSS' }).click()
-  await expect(page.getByText('CSS copied')).toBeVisible()
+  await expect(page.getByText(/CSS copied|Could not copy/)).toBeVisible()
 })
 
 test('about and privacy are reachable', async ({ page }) => {

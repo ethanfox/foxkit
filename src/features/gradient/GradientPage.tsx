@@ -43,8 +43,12 @@ export function GradientPage() {
       toast('Freeform has no CSS export. Download SVG or PNG.')
       return
     }
-    await copyText(`${css}\n${cssCustomProperties(doc)}`)
-    toast('CSS copied')
+    try {
+      await copyText(`${css}\n${cssCustomProperties(doc)}`)
+      toast('CSS copied')
+    } catch {
+      toast('Could not copy. Select the CSS from Export instead.')
+    }
   }
 
   const download = async () => {

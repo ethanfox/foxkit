@@ -18,11 +18,8 @@ export function Workspace({ nav, preview, inspector, exportBar }: WorkspaceProps
         <div className="border-t border-line bg-black p-3">{exportBar}</div>
       </section>
       <aside className="min-h-0 overflow-auto border-t border-line p-4 lg:border-t-0 lg:border-l">
-        <details className="lg:hidden" open>
-          <summary className="min-h-10 cursor-pointer text-sm text-ink">Controls</summary>
-          <div className="pt-4">{inspector}</div>
-        </details>
-        <div className="hidden lg:block">{inspector}</div>
+        <h2 className="mb-4 text-sm text-mute lg:sr-only">Controls</h2>
+        {inspector}
       </aside>
     </div>
   )

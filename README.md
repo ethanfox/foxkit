@@ -4,6 +4,8 @@ Small visual tools that run entirely in your browser.
 
 No account. No upload. No nonsense. Your files never leave your device.
 
+![FoxKit home](docs/screenshot-home.png)
+
 ## Tools
 
 - **Gradient Studio** — linear, radial, conic, and freeform gradients with CSS, SVG, and PNG export, local saves, and shareable URLs.
