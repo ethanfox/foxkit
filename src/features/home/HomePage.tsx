@@ -40,7 +40,7 @@ export function HomePage() {
           copy="What FoxKit is, and how files stay on this device."
         >
           <div className={toolWellClass}>
-            <AppIcon className="size-20 rounded-[1.4rem] outline outline-1 outline-white/10" />
+            <AppIcon className="size-20" />
           </div>
         </ToolCard>
       </section>

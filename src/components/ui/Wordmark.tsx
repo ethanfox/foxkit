@@ -19,9 +19,9 @@ export function Wordmark({ compact = false, className = '' }: WordmarkProps) {
 export function AppIcon({ className = '' }: { className?: string }) {
   return (
     <img
-      src={`${import.meta.env.BASE_URL}icons/app-icon.svg`}
+      src={`${import.meta.env.BASE_URL}AppIcon.svg`}
       alt=""
-      className={`select-none ${className}`}
+      className={`select-none rounded-[22%] ${className}`}
     />
   )
 }

@@ -1,14 +1,13 @@
-import { mkdir, copyFile } from 'node:fs/promises'
+import { mkdir } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const source = resolve(root, 'AppIcon.svg')
+const source = resolve(root, 'public/AppIcon.svg')
 const outDir = resolve(root, 'public/icons')
 
 await mkdir(outDir, { recursive: true })
-await copyFile(source, resolve(outDir, 'app-icon.svg'))
 
 async function png(size, name, extra = {}) {
   await sharp(source)
@@ -32,5 +31,4 @@ await sharp(source)
   .png()
   .toFile(resolve(outDir, 'maskable-512.png'))
 
-await copyFile(source, resolve(root, 'public/favicon.svg'))
-console.log('Wrote PWA icons')
+console.log('Wrote install PNGs from public/AppIcon.svg')

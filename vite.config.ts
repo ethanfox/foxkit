@@ -21,10 +21,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       minify: false,
       includeAssets: [
-        'favicon.svg',
+        'AppIcon.svg',
         'brand/foxkit-wordmark.svg',
         'brand/foxkit-mark.svg',
-        'icons/app-icon.svg',
         'apps/gradient-maker-icon.svg',
         'apps/image-lab-icon.svg',
         'apps/palette-extractor.svg',
@@ -61,7 +60,7 @@ export default defineConfig({
             purpose: 'maskable',
           },
           {
-            src: 'icons/app-icon.svg',
+            src: 'AppIcon.svg',
             sizes: 'any',
             type: 'image/svg+xml',
             purpose: 'any',
