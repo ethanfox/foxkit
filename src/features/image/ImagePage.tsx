@@ -16,11 +16,12 @@ export function ImagePage() {
   const file = useImageStore((state) => state.file)
   const source = useImageStore((state) => state.source)
   const settings = useImageStore((state) => state.settings)
+  const output = useImageStore((state) => state.output)
   const outputSize = useImageStore((state) => state.outputSize)
   const processing = useImageStore((state) => state.processing)
   const error = useImageStore((state) => state.error)
   const patch = useImageStore((state) => state.patch)
-  const setOutputSize = useImageStore((state) => state.setOutputSize)
+  const setOutput = useImageStore((state) => state.setOutput)
   const setProcessing = useImageStore((state) => state.setProcessing)
   const setError = useImageStore((state) => state.setError)
   const estimateRef = useRef(0)
@@ -29,6 +30,9 @@ export function ImagePage() {
     void loadImageSettings().then((saved) => {
       if (saved) patch(saved)
     })
+    return () => {
+      useImageStore.getState().clear()
+    }
   }, [patch])
 
   useEffect(() => {
@@ -38,7 +42,6 @@ export function ImagePage() {
       void (async () => {
         setProcessing(true)
         try {
-          const buffer = await file.arrayBuffer()
           const ops = settingsToOps(settings, source)
           const result = settings.targetBytes
             ? await findQualityForTarget(
@@ -47,51 +50,47 @@ export function ImagePage() {
                 ops,
                 settings.targetBytes,
               )
-            : await processImage(buffer, source.type, ops)
+            : await processImage(await file.arrayBuffer(), source.type, ops)
           if (ticket !== estimateRef.current) return
-          setOutputSize(result.blob.size)
+          setOutput({
+            blob: result.blob,
+            width: result.width,
+            height: result.height,
+          })
           setError(null)
         } catch (caught) {
           if (ticket !== estimateRef.current) return
           const message =
             caught instanceof Error ? caught.message : 'Could not process image'
           setError(message)
-          setOutputSize(null)
+          setOutput(null)
         } finally {
           if (ticket === estimateRef.current) setProcessing(false)
         }
       })()
     }, 280)
     return () => window.clearTimeout(timer)
-  }, [file, source, settings, patch, setError, setOutputSize, setProcessing])
+  }, [file, source, settings, setError, setOutput, setProcessing])
 
   const download = async () => {
     if (!file || !source) {
       toast('Drop an image first')
       return
     }
-    setProcessing(true)
     try {
-      const ops = settingsToOps(settings, source)
-      const result = settings.targetBytes
-        ? await findQualityForTarget(
-            () => file.arrayBuffer(),
-            source.type,
-            ops,
-            settings.targetBytes,
-          )
-        : await processImage(await file.arrayBuffer(), source.type, ops)
+      const blob = output?.blob
+      if (!blob) {
+        toast('Wait for the preview to finish')
+        return
+      }
       const name = `${sanitizeFilename(settings.filename, 'foxkit-image')}.${extensionFor(settings.format)}`
-      downloadBlob(result.blob, name)
-      setOutputSize(result.blob.size)
+      downloadBlob(blob, name)
       toast('Downloaded. Processed on this device.')
     } catch (caught) {
       const message =
         caught instanceof Error ? caught.message : 'Could not export image'
       setError(message)
       toast(message)
-    } finally {
-      setProcessing(false)
     }
   }
 
@@ -110,7 +109,7 @@ export function ImagePage() {
         <ExportBar
           onDownload={() => void download()}
           downloadLabel={processing ? 'Working…' : 'Download'}
-          disabled={!file || processing}
+          disabled={!file || processing || !output}
         >
           {error
             ? error

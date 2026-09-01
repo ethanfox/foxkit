@@ -26,7 +26,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`inline-flex min-h-10 items-center justify-center gap-2 rounded-[var(--radius-control)] px-3.5 text-sm font-medium transition-[transform,background-color,color] duration-150 ${styles[variant]} ${className}`}
+      className={`inline-flex min-h-10 min-w-0 items-center justify-center gap-2 rounded-[var(--radius-control)] px-3.5 text-sm font-medium transition-[transform,background-color,color] duration-150 ${styles[variant]} ${className}`}
       {...props}
     >
       {children}

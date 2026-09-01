@@ -21,7 +21,7 @@ test('image lab accepts a local png and enables download', async ({ page }) => {
 
   await page.goto('./image')
   await page.locator('input[type="file"]').first().setInputFiles(file)
-  await expect(page.getByText('Original 240×160')).toBeVisible()
+  await expect(page.getByText('240×160', { exact: false }).first()).toBeVisible()
   await expect(page.getByRole('button', { name: 'Download' })).toBeEnabled()
   await expect(page.getByText('Processed locally. Nothing is uploaded.')).toBeVisible()
 })

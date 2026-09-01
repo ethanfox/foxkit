@@ -15,3 +15,13 @@ export function Wordmark({ compact = false, className = '' }: WordmarkProps) {
     />
   )
 }
+
+export function AppIcon({ className = '' }: { className?: string }) {
+  return (
+    <img
+      src={`${import.meta.env.BASE_URL}icons/app-icon.svg`}
+      alt=""
+      className={`select-none ${className}`}
+    />
+  )
+}

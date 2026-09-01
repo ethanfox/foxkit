@@ -20,7 +20,7 @@ export function TextField({
       </label>
       <input
         id={id}
-        className={`min-h-10 rounded-[var(--radius-control)] border border-line bg-raised px-3 font-mono text-sm text-ink ${className}`}
+        className={`min-h-10 w-full min-w-0 rounded-[var(--radius-control)] border border-line bg-raised px-3 font-mono text-sm text-ink ${className}`}
         {...props}
       />
       {hint ? <p className="text-xs text-mute">{hint}</p> : null}

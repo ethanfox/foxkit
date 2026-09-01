@@ -1,19 +1,18 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Wordmark } from '@/components/ui/Wordmark'
+import { AppIcon, Wordmark } from '@/components/ui/Wordmark'
 
 export function HomePage() {
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-8 sm:py-12">
+    <div className="grid w-full gap-10 px-4 py-8 sm:py-12">
       <header className="grid gap-4">
         <Wordmark className="h-20 sm:h-28" />
         <p className="max-w-xl text-xl text-ink sm:text-2xl">
           Small visual tools that run entirely in your browser.
         </p>
-        <p className="text-mute">No account. No upload. No nonsense.</p>
       </header>
 
-      <section aria-label="Tools" className="grid gap-4 md:grid-cols-2">
+      <section aria-label="Tools" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <ToolCard
           to="/gradient"
           title="Gradient Studio"
@@ -33,17 +32,38 @@ export function HomePage() {
           title="Image Lab"
           copy="Resize, crop, blur, convert, and compress files on this device."
         >
-          <div className="relative h-40 overflow-hidden rounded-xl bg-raised">
-            <div className="absolute inset-6 rounded-lg border-2 border-ink/80" />
-            <div className="absolute inset-10 bg-[linear-gradient(135deg,#fff_0%,#888_50%,#111_100%)] opacity-80" />
+          <img
+            src={`${import.meta.env.BASE_URL}image-lab.webp`}
+            alt=""
+            className="h-40 w-full rounded-xl object-cover outline outline-1 outline-white/10"
+          />
+        </ToolCard>
+        <ToolCard
+          to="/palette"
+          title="Palette"
+          copy="Pull the main colors from an image, then drag, save, or copy them."
+        >
+          <div className="flex h-40 overflow-hidden rounded-xl">
+            {['#f4c430', '#2f6fed', '#f28b30', '#1d3b2a', '#f7f1e1'].map((hex) => (
+              <span key={hex} className="min-w-0 flex-1" style={{ background: hex }} />
+            ))}
+          </div>
+        </ToolCard>
+        <ToolCard
+          to="/about"
+          title="About"
+          copy="What FoxKit is, and how files stay on this device."
+        >
+          <div className="flex h-40 items-center justify-center rounded-xl bg-raised">
+            <AppIcon className="size-20 rounded-[1.4rem] outline outline-1 outline-white/10" />
           </div>
         </ToolCard>
       </section>
 
       <section aria-label="In development">
         <h2 className="mb-3 text-sm text-mute">In development</h2>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {['Palette extraction', 'Typographic scale', 'SVG optimizer'].map(
+        <div className="grid gap-3 sm:grid-cols-2">
+          {['Typographic scale', 'SVG optimizer'].map(
             (name) => (
               <p
                 key={name}
@@ -56,7 +76,11 @@ export function HomePage() {
         </div>
       </section>
 
-      <p className="text-sm text-mute">Your files never leave your device.</p>
+      <p className="text-sm text-mute">
+        <Link to="/about#privacy" className="underline-offset-4 hover:text-ink hover:underline">
+          Your files never leave your device.
+        </Link>
+      </p>
     </div>
   )
 }

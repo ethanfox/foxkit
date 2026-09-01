@@ -192,7 +192,7 @@ export function ImageInspector() {
       <Slider
         label="Blur"
         min={0}
-        max={40}
+        max={250}
         value={settings.blur}
         onChange={(blur) => patch({ blur })}
         display={`${settings.blur}px`}
@@ -255,14 +255,14 @@ export function ImageInspector() {
         value={settings.filename}
         onChange={(event) => patch({ filename: event.target.value })}
       />
-      {outputSize !== null ? (
-        <p className="text-sm text-mute">
-          Output {formatBytes(outputSize)}
-          {source.size
-            ? ` · ${outputSize < source.size ? 'smaller' : 'larger'} than original ${formatBytes(source.size)}`
-            : ''}
-        </p>
-      ) : null}
+      <p className="text-sm text-mute">
+        Original {formatBytes(source.size)}
+        {outputSize !== null
+          ? ` · Output ${formatBytes(outputSize)} · ${
+              outputSize < source.size ? 'smaller' : 'larger'
+            }`
+          : ''}
+      </p>
     </div>
   )
 }

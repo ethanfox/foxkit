@@ -5,7 +5,7 @@ test('home shows the two tools', async ({ page }) => {
   await page.goto('./')
   await expect(page.getByRole('heading', { name: 'Gradient Studio' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Image Lab' })).toBeVisible()
-  await expect(page.getByText('No account. No upload. No nonsense.')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Palette' })).toBeVisible()
 })
 
 test('gradient studio opens export and copies css', async ({ page, context }) => {
@@ -18,8 +18,10 @@ test('gradient studio opens export and copies css', async ({ page, context }) =>
 })
 
 test('about and privacy are reachable', async ({ page }) => {
-  await page.goto('./about')
+  await page.goto('./')
+  await page.getByRole('link', { name: /About/ }).click()
   await expect(page.getByRole('heading', { name: 'About FoxKit' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Privacy' })).toBeVisible()
   await page.goto('./privacy')
   await expect(page.getByRole('heading', { name: 'Privacy' })).toBeVisible()
 })

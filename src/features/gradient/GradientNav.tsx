@@ -28,9 +28,10 @@ export function GradientNav() {
 
   return (
     <div className="grid gap-4">
-      <div className="grid gap-2">
+      <div className="grid gap-2 rounded-[var(--radius-card)] bg-raised p-3">
         <Button
           variant="primary"
+          className="w-full"
           onClick={async () => {
             await saveGradient(doc)
             await refresh()
@@ -39,6 +40,11 @@ export function GradientNav() {
         >
           Save locally
         </Button>
+        <p className="text-sm text-mute">
+          Stores this gradient in this browser. Nothing is uploaded.
+        </p>
+      </div>
+      <div className="grid gap-2">
         <Button
           onClick={() => {
             setDoc(createGradient({ name: 'Untitled gradient' }))
@@ -56,7 +62,7 @@ export function GradientNav() {
         >
           Export JSON
         </Button>
-        <label className="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-[var(--radius-control)] bg-raised px-3 text-sm">
+        <label className="inline-flex min-h-10 w-full min-w-0 cursor-pointer items-center justify-center rounded-[var(--radius-control)] bg-raised px-3 text-sm">
           Import JSON
           <input
             type="file"

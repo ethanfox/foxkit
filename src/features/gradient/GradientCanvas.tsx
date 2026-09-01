@@ -48,9 +48,9 @@ export function GradientCanvas() {
   }
 
   return (
-    <div className="grid h-full min-h-[320px] place-items-center">
+    <div className="flex size-full items-center justify-center">
       <div
-        className={`relative w-full max-w-3xl ${doc.showGrid ? 'checkerboard' : 'bg-raised'} overflow-hidden rounded-[var(--radius-card)] outline outline-white/10`}
+        className={`relative max-h-full w-full max-w-3xl ${doc.showGrid ? 'checkerboard' : 'bg-raised'} overflow-hidden rounded-[var(--radius-card)] outline outline-white/10`}
         style={{ aspectRatio: `${ratio}` }}
       >
         <canvas

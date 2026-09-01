@@ -9,6 +9,7 @@ interface SegmentedControlProps<T extends string> {
   value: T
   options: Option<T>[]
   onChange: (value: T) => void
+  hideLabel?: boolean
 }
 
 export function SegmentedControl<T extends string>({
@@ -16,14 +17,15 @@ export function SegmentedControl<T extends string>({
   value,
   options,
   onChange,
+  hideLabel = false,
 }: SegmentedControlProps<T>) {
   return (
     <fieldset className="grid gap-1.5">
-      <legend className="text-sm text-ink">{label}</legend>
+      <legend className={hideLabel ? 'sr-only' : 'text-sm text-ink'}>{label}</legend>
       <div
         role="radiogroup"
         aria-label={label}
-        className="flex flex-wrap rounded-[var(--radius-control)] bg-raised p-1"
+        className="grid grid-cols-2 gap-1 rounded-[var(--radius-control)] bg-raised p-1"
       >
         {options.map((option) => {
           const selected = option.value === value
@@ -35,7 +37,7 @@ export function SegmentedControl<T extends string>({
               aria-checked={selected}
               disabled={option.disabled}
               onClick={() => onChange(option.value)}
-              className={`min-h-9 flex-1 rounded-md px-2.5 text-sm transition-[background-color,color] duration-150 disabled:text-mute ${
+              className={`min-h-9 min-w-0 rounded-md px-2 text-sm transition-[background-color,color] duration-150 disabled:text-mute ${
                 selected ? 'bg-ink text-black' : 'text-ink hover:bg-line'
               }`}
             >
