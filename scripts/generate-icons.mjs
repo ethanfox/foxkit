@@ -4,10 +4,11 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const source = resolve(root, 'public/icons/app-icon.svg')
+const source = resolve(root, 'AppIcon.svg')
 const outDir = resolve(root, 'public/icons')
 
 await mkdir(outDir, { recursive: true })
+await copyFile(source, resolve(outDir, 'app-icon.svg'))
 
 async function png(size, name, extra = {}) {
   await sharp(source)

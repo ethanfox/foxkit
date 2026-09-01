@@ -18,43 +18,28 @@ export function HomePage() {
           title="Gradient Studio"
           copy="Make, tune, and export gradients for CSS, SVG, or PNG."
         >
-          <div
-            className="h-40 rounded-xl"
-            style={{
-              background:
-                'linear-gradient(in oklab 135deg, #ff4d00 0%, #2b0b3f 100%)',
-            }}
-            aria-hidden="true"
-          />
+          <ToolIcon src="apps/gradient-maker-icon.svg" />
         </ToolCard>
         <ToolCard
           to="/image"
           title="Image Lab"
           copy="Resize, crop, blur, convert, and compress files on this device."
         >
-          <img
-            src={`${import.meta.env.BASE_URL}image-lab.webp`}
-            alt=""
-            className="h-40 w-full rounded-xl object-cover outline outline-1 outline-white/10"
-          />
+          <ToolIcon src="apps/image-lab-icon.svg" invert />
         </ToolCard>
         <ToolCard
           to="/palette"
           title="Palette"
           copy="Pull the main colors from an image, then drag, save, or copy them."
         >
-          <div className="flex h-40 overflow-hidden rounded-xl">
-            {['#f4c430', '#2f6fed', '#f28b30', '#1d3b2a', '#f7f1e1'].map((hex) => (
-              <span key={hex} className="min-w-0 flex-1" style={{ background: hex }} />
-            ))}
-          </div>
+          <ToolIcon src="apps/palette-extractor.svg" invert />
         </ToolCard>
         <ToolCard
           to="/about"
           title="About"
           copy="What FoxKit is, and how files stay on this device."
         >
-          <div className="flex h-40 items-center justify-center rounded-xl bg-raised">
+          <div className={toolWellClass}>
             <AppIcon className="size-20 rounded-[1.4rem] outline outline-1 outline-white/10" />
           </div>
         </ToolCard>
@@ -85,6 +70,21 @@ export function HomePage() {
   )
 }
 
+const hoverEase = 'duration-300 ease-[cubic-bezier(0.2,0,0,1)]'
+const toolWellClass = `flex h-40 items-center justify-center rounded-xl bg-raised transition-colors ${hoverEase} group-hover:bg-transparent`
+
+function ToolIcon({ src, invert = false }: { src: string; invert?: boolean }) {
+  return (
+    <div className={toolWellClass} aria-hidden="true">
+      <img
+        src={`${import.meta.env.BASE_URL}${src}`}
+        alt=""
+        className={`size-20 select-none ${invert ? 'brand-invert' : ''}`}
+      />
+    </div>
+  )
+}
+
 function ToolCard({
   to,
   title,
@@ -99,7 +99,7 @@ function ToolCard({
   return (
     <Link
       to={to}
-      className="grid gap-5 rounded-[var(--radius-card)] bg-surface p-5 transition-[transform,background-color] duration-150 hover:bg-raised active:scale-[0.99]"
+      className={`group grid gap-5 rounded-[var(--radius-card)] bg-surface p-5 transition-[background-color,transform] ${hoverEase} hover:bg-raised active:scale-[0.99]`}
     >
       <div className="grid gap-1">
         <h2 className="text-lg text-ink">{title}</h2>
