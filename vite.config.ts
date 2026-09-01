@@ -5,8 +5,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { copyFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-export default defineConfig(({ command }) => {
-  const base = command === 'serve' ? '/' : '/foxkit/'
+export default defineConfig(({ mode }) => {
+  const base = mode === 'development' ? '/' : '/foxkit/'
 
   return {
   resolve: {
