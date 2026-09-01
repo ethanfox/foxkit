@@ -1,9 +1,7 @@
-import { Link } from 'react-router-dom'
-
-export function BackLink({ to = '/' }: { to?: string }) {
+export function BackLink() {
   return (
-    <Link
-      to={to}
+    <a
+      href={import.meta.env.BASE_URL}
       className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-[var(--radius-control)] bg-raised px-3.5 text-sm font-medium transition-[background-color,color] duration-150 hover:bg-line"
     >
       <svg
@@ -19,6 +17,6 @@ export function BackLink({ to = '/' }: { to?: string }) {
         <path d="M15 6l-6 6 6 6" />
       </svg>
       Back
-    </Link>
+    </a>
   )
 }

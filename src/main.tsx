@@ -8,7 +8,16 @@ import '@/styles/index.css'
 
 registerSW({ immediate: true })
 
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+const base = import.meta.env.BASE_URL
+if (window.location.pathname === base.replace(/\/$/, '')) {
+  window.history.replaceState(
+    window.history.state,
+    '',
+    `${base}${window.location.search}${window.location.hash}`,
+  )
+}
+
+const basename = base.replace(/\/$/, '') || '/'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

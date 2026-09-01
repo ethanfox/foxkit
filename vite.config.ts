@@ -40,7 +40,7 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'any',
         start_url: base,
-        scope: base,
+        scope: base.replace(/\/$/, ''),
         id: base,
         icons: [
           {
