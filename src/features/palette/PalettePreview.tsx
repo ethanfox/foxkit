@@ -21,7 +21,7 @@ export function PalettePreview() {
     }
   }
 
-  const onPointer = (event: PointerEvent<HTMLDivElement>) => {
+  const onPointer = (event: PointerEvent<HTMLElement>) => {
     if (event.buttons !== 1 && event.type !== 'pointerdown') return
     const frame = frameRef.current
     if (!frame || colors.length === 0) return
